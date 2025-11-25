@@ -1,4 +1,3 @@
-
 # 🎨 HobbyHub - MEAN Stack Application
 
 A real-time chat application that connects people with similar hobbies using the MEAN stack (MongoDB, Express.js, AngularJS, Node.js) with Socket.IO for real-time communication.
