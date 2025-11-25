@@ -1,1 +1,258 @@
+<!DOCTYPE html>
+<html ng-app="HobbyHubApp">
+<head>
+  <meta charset="utf-8" />
+  <title>Register - HobbyHub</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      max-width: 480px;
+      width: 100%;
+      padding: 40px;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #444;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    .country-select-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .country-select-group img {
+      width: 32px;
+      height: 24px;
+      border-radius: 4px;
+    }
+    .country-select-group select {
+      flex: 1;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 10px;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+    button:active {
+      transform: translateY(0);
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .login-link {
+      text-align: center;
+      margin-top: 20px;
+      color: #666;
+      font-size: 14px;
+    }
+    .login-link a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+    .error-text {
+      color: #e74c3c;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    .loading {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+    }
+    .hobby-list {
+      columns: 2;
+      column-gap: 10px;
+      font-size: 12px;
+      color: #888;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body ng-controller="registerController">
+  <div class="container">
+    <h1>🎨 HobbyHub</h1>
+    <p class="subtitle">Connect with people who share your interests</p>
 
+    <form ng-submit="registerUser()" name="registerForm">
+      
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Full Name *</label>
+        <input 
+          type="text" 
+          id="name" 
+          ng-model="user.name" 
+          placeholder="Enter your full name"
+          required />
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input 
+          type="email" 
+          id="email" 
+          ng-model="user.email" 
+          placeholder="your.email@example.com"
+          required />
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password *</label>
+        <input 
+          type="password" 
+          id="password" 
+          ng-model="user.password" 
+          placeholder="Create a strong password"
+          required />
+      </div>
+
+      <!-- Hobby Selection -->
+      <div class="form-group">
+        <label for="hobby">Select Your Hobby *</label>
+        <select 
+          id="hobby" 
+          ng-model="user.hobby" 
+          required>
+          <option value="">-- Choose a hobby --</option>
+          <option value="Pottery">Pottery</option>
+          <option value="Jewellery Making">Jewellery Making</option>
+          <option value="Sculpture Making">Sculpture Making</option>
+          <option value="Poetry">Poetry</option>
+          <option value="Creative Writing">Creative Writing</option>
+          <option value="Coding">Coding</option>
+          <option value="Sports (Indoor)">Sports (Indoor)</option>
+          <option value="Fashion Designing">Fashion Designing</option>
+          <option value="Yoga and Meditation">Yoga and Meditation</option>
+          <option value="Fitness">Fitness</option>
+          <option value="Others">Others</option>
+        </select>
+      </div>
+
+      <!-- Other Hobby (conditional) -->
+      <div class="form-group" ng-show="user.hobby === 'Others'">
+        <label for="otherHobby">Specify Your Hobby *</label>
+        <input 
+          type="text" 
+          id="otherHobby" 
+          ng-model="user.otherHobby" 
+          placeholder="Enter your hobby"
+          ng-required="user.hobby === 'Others'" />
+        <p class="error-text" style="margin-top: 5px;">
+          ⚠️ Religious, political topics are not allowed
+        </p>
+      </div>
+
+      <!-- Country Code -->
+      <div class="form-group">
+        <label for="countryCode">Country Code *</label>
+        <div class="loading" ng-show="loadingCountries">Loading countries...</div>
+        <div class="error-text" ng-show="countryLoadError">Failed to load countries. Please refresh.</div>
+        
+        <div class="country-select-group" ng-show="!loadingCountries && !countryLoadError">
+          <img 
+            ng-src="{{selectedCountry.flag || 'https://flagsapi.com/US/flat/64.png'}}" 
+            alt="Flag" />
+          <select 
+            id="countryCode" 
+            ng-model="user.countryCode"
+            ng-change="selectedCountry = countries.find(c => c.code === user.countryCode)"
+            required>
+            <option value="">-- Select country --</option>
+            <option 
+              ng-repeat="country in countries" 
+              value="{{country.code}}">
+              {{country.name}} ({{country.code}})
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Phone Number -->
+      <div class="form-group">
+        <label for="phone">Phone Number *</label>
+        <input 
+          type="tel" 
+          id="phone" 
+          ng-model="user.phone" 
+          placeholder="Enter phone number"
+          required />
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" ng-disabled="registerForm.$invalid || loadingCountries">
+        Create Account
+      </button>
+    </form>
+
+    <!-- Login Link -->
+    <p class="login-link">
+      Already have an account? <a href="index.html">Log In</a>
+    </p>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="service.js"></script>
+  <script src="controllers.js"></script>
+</body>
+</html>
