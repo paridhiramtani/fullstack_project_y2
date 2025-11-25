@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html ng-app="HobbyHubApp">
 <head>
@@ -18,73 +17,26 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow: hidden;
         }
 
         .chat-wrapper {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             height: 90vh;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            animation: slideUp 0.6s ease;
         }
 
-        .chat-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chat-header h2 {
-            font-size: 22px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .user-info {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .logout-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .logout-btn:hover {
-            background: white;
-            color: #667eea;
-        }
-
-        .messages-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 25px;
-            background: #f8f9fa;
-        }
-
-        .message {
-            margin-bottom: 16px;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
+        @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -92,96 +44,217 @@
             }
         }
 
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-header h2 {
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .user-info {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            margin-top: 4px;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logout-btn:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+            background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .message {
+            margin-bottom: 20px;
+            animation: slideIn 0.4s ease;
+            transform-origin: left center;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         .message-sender {
             font-weight: 700;
-            color: #667eea;
-            margin-bottom: 4px;
-            font-size: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .message-sender::before {
+            content: '💬';
+            font-size: 1rem;
         }
 
         .message-text {
             background: white;
-            padding: 12px 16px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 15px 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             color: #333;
-            line-height: 1.5;
+            line-height: 1.6;
             word-wrap: break-word;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s;
+        }
+
+        .message-text:hover {
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
+            transform: translateY(-2px);
         }
 
         .message-time {
-            font-size: 11px;
+            font-size: 0.75rem;
             color: #999;
-            margin-top: 4px;
+            margin-top: 6px;
+            margin-left: 26px;
         }
 
         .input-area {
-            padding: 20px 25px;
+            padding: 25px 30px;
             background: white;
             border-top: 2px solid #e9ecef;
             display: flex;
-            gap: 12px;
+            gap: 15px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
         }
 
         .message-input {
             flex: 1;
-            padding: 14px 18px;
+            padding: 16px 22px;
             border: 2px solid #e0e0e0;
-            border-radius: 25px;
-            font-size: 15px;
-            transition: border-color 0.3s;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s;
             font-family: inherit;
+            background: #f8f9fa;
         }
 
         .message-input:focus {
             outline: none;
             border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: white;
         }
 
         .send-btn {
-            padding: 14px 30px;
+            padding: 16px 35px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 25px;
-            font-weight: 600;
+            border-radius: 30px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 15px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
         }
 
         .send-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
         }
 
         .send-btn:active {
-            transform: translateY(0);
+            transform: translateY(-1px);
         }
 
         .no-messages {
             text-align: center;
             color: #999;
-            padding: 40px;
-            font-size: 16px;
+            padding: 60px 40px;
+            font-size: 1.1rem;
+        }
+
+        .no-messages::before {
+            content: '💬';
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 1rem;
+            opacity: 0.5;
         }
 
         /* Scrollbar styling */
         .messages-container::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
 
         .messages-container::-webkit-scrollbar-track {
             background: #f1f1f1;
+            border-radius: 10px;
         }
 
         .messages-container::-webkit-scrollbar-thumb {
-            background: #667eea;
-            border-radius: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
         }
 
         .messages-container::-webkit-scrollbar-thumb:hover {
-            background: #764ba2;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        /* Online status indicator */
+        .online-status {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #2ecc71;
+            border-radius: 50%;
+            margin-left: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
@@ -195,8 +268,9 @@
                 <h2>
                     <span>🎨</span>
                     <span>{{ user.hobby }} Group</span>
+                    <span class="online-status"></span>
                 </h2>
-                <div class="user-info">Welcome, {{ user.name }}!</div>
+                <div class="user-info">👋 Welcome, {{ user.name }}!</div>
             </div>
             <button class="logout-btn" ng-click="logout()">Logout</button>
         </div>
@@ -204,7 +278,7 @@
         <!-- Messages Area -->
         <div class="messages-container" id="messagesContainer">
             <div ng-if="messages.length === 0" class="no-messages">
-                💬 No messages yet. Start the conversation!
+                Start the conversation!
             </div>
             
             <div ng-repeat="msg in messages" class="message">
