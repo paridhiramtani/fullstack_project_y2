@@ -6,6 +6,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       font-family: 'Segoe UI', Arial, sans-serif;
@@ -15,128 +16,251 @@
       justify-content: center;
       padding: 20px;
     }
-    .container {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      max-width: 480px;
+
+    .register-container {
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 24px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+      max-width: 550px;
       width: 100%;
-      padding: 40px;
+      padding: 50px 45px;
+      animation: slideUp 0.6s ease;
     }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .logo {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+    }
+
     h1 {
       color: #333;
-      text-align: center;
-      margin-bottom: 10px;
-      font-size: 28px;
+      margin-bottom: 0.5rem;
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
+
     .subtitle {
-      text-align: center;
       color: #666;
-      margin-bottom: 30px;
-      font-size: 14px;
+      font-size: 1rem;
     }
+
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 1.5rem;
+      position: relative;
     }
+
     label {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 0.5rem;
       color: #444;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
     }
+
+    label .emoji {
+      font-size: 1.1rem;
+    }
+
     input, select {
       width: 100%;
-      padding: 12px 15px;
+      padding: 14px 18px;
       border: 2px solid #e0e0e0;
-      border-radius: 8px;
-      font-size: 14px;
-      transition: border-color 0.3s;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s;
+      font-family: inherit;
+      background: white;
     }
+
     input:focus, select:focus {
       outline: none;
       border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
-    .country-select-group {
+
+    input::placeholder {
+      color: #999;
+    }
+
+    .country-select-wrapper {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       align-items: center;
     }
-    .country-select-group img {
-      width: 32px;
-      height: 24px;
-      border-radius: 4px;
+
+    .flag-display {
+      width: 48px;
+      height: 36px;
+      border-radius: 8px;
+      border: 2px solid #e0e0e0;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
-    .country-select-group select {
+
+    .country-select-wrapper select {
       flex: 1;
     }
+
     button {
       width: 100%;
-      padding: 14px;
+      padding: 16px;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      margin-top: 10px;
+      transition: all 0.3s;
+      margin-top: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
     }
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+
+    button:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
     }
-    button:active {
-      transform: translateY(0);
+
+    button:active:not(:disabled) {
+      transform: translateY(-1px);
     }
+
     button:disabled {
       opacity: 0.6;
       cursor: not-allowed;
     }
+
     .login-link {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 1.8rem;
       color: #666;
-      font-size: 14px;
+      font-size: 0.95rem;
     }
+
     .login-link a {
       color: #667eea;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
+      transition: all 0.3s;
     }
+
     .login-link a:hover {
+      color: #764ba2;
       text-decoration: underline;
     }
+
+    .warning {
+      background: rgba(255, 193, 7, 0.1);
+      border-left: 4px solid #ffc107;
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #856404;
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .loading-spinner {
+      text-align: center;
+      color: #667eea;
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+
     .error-text {
       color: #e74c3c;
-      font-size: 12px;
-      margin-top: 5px;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      font-weight: 600;
     }
-    .loading {
-      text-align: center;
-      color: #666;
-      font-size: 14px;
-    }
-    .hobby-list {
-      columns: 2;
-      column-gap: 10px;
-      font-size: 12px;
+
+    .hobby-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      font-size: 0.8rem;
       color: #888;
-      margin-top: 5px;
+      margin-top: 0.5rem;
+    }
+
+    select option {
+      padding: 10px;
+    }
+
+    /* Progress indicator */
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .progress-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      transition: all 0.3s;
+    }
+
+    .progress-dot.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      width: 30px;
+      border-radius: 5px;
     }
   </style>
 </head>
+
 <body ng-controller="registerController">
-  <div class="container">
-    <h1>🎨 HobbyHub</h1>
-    <p class="subtitle">Connect with people who share your interests</p>
+  <div class="register-container">
+    
+    <div class="header">
+      <div class="logo">🎨</div>
+      <h1>Join HobbyHub</h1>
+      <p class="subtitle">Connect with people who share your passions</p>
+    </div>
+
+    <div class="progress-dots">
+      <div class="progress-dot active"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+    </div>
 
     <form ng-submit="registerUser()" name="registerForm">
       
       <!-- Name -->
       <div class="form-group">
-        <label for="name">Full Name *</label>
+        <label for="name">
+          <span class="emoji">👤</span>
+          <span>Full Name</span>
+        </label>
         <input 
           type="text" 
           id="name" 
@@ -147,7 +271,10 @@
 
       <!-- Email -->
       <div class="form-group">
-        <label for="email">Email Address *</label>
+        <label for="email">
+          <span class="emoji">📧</span>
+          <span>Email Address</span>
+        </label>
         <input 
           type="email" 
           id="email" 
@@ -158,59 +285,80 @@
 
       <!-- Password -->
       <div class="form-group">
-        <label for="password">Password *</label>
+        <label for="password">
+          <span class="emoji">🔒</span>
+          <span>Password</span>
+        </label>
         <input 
           type="password" 
           id="password" 
           ng-model="user.password" 
           placeholder="Create a strong password"
+          minlength="6"
           required />
       </div>
 
       <!-- Hobby Selection -->
       <div class="form-group">
-        <label for="hobby">Select Your Hobby *</label>
+        <label for="hobby">
+          <span class="emoji">🎯</span>
+          <span>Select Your Hobby</span>
+        </label>
         <select 
           id="hobby" 
           ng-model="user.hobby" 
           required>
-          <option value="">-- Choose a hobby --</option>
-          <option value="Pottery">Pottery</option>
-          <option value="Jewellery Making">Jewellery Making</option>
-          <option value="Sculpture Making">Sculpture Making</option>
-          <option value="Poetry">Poetry</option>
-          <option value="Creative Writing">Creative Writing</option>
-          <option value="Coding">Coding</option>
-          <option value="Sports (Indoor)">Sports (Indoor)</option>
-          <option value="Fashion Designing">Fashion Designing</option>
-          <option value="Yoga and Meditation">Yoga and Meditation</option>
-          <option value="Fitness">Fitness</option>
-          <option value="Others">Others</option>
+          <option value="">-- Choose your passion --</option>
+          <option value="Pottery">🏺 Pottery</option>
+          <option value="Jewellery Making">💎 Jewellery Making</option>
+          <option value="Sculpture Making">🗿 Sculpture Making</option>
+          <option value="Poetry">📝 Poetry</option>
+          <option value="Creative Writing">✍️ Creative Writing</option>
+          <option value="Coding">💻 Coding</option>
+          <option value="Sports (Indoor)">🏓 Sports (Indoor)</option>
+          <option value="Fashion Designing">👗 Fashion Designing</option>
+          <option value="Yoga and Meditation">🧘 Yoga and Meditation</option>
+          <option value="Fitness">💪 Fitness</option>
+          <option value="Others">🎨 Others</option>
         </select>
       </div>
 
       <!-- Other Hobby (conditional) -->
       <div class="form-group" ng-show="user.hobby === 'Others'">
-        <label for="otherHobby">Specify Your Hobby *</label>
+        <label for="otherHobby">
+          <span class="emoji">✨</span>
+          <span>Specify Your Hobby</span>
+        </label>
         <input 
           type="text" 
           id="otherHobby" 
           ng-model="user.otherHobby" 
-          placeholder="Enter your hobby"
+          placeholder="Tell us about your hobby"
           ng-required="user.hobby === 'Others'" />
-        <p class="error-text" style="margin-top: 5px;">
-          ⚠️ Religious, political topics are not allowed
-        </p>
+        <div class="warning">
+          <span>⚠️</span>
+          <span>Religious and political topics are not allowed</span>
+        </div>
       </div>
 
       <!-- Country Code -->
       <div class="form-group">
-        <label for="countryCode">Country Code *</label>
-        <div class="loading" ng-show="loadingCountries">Loading countries...</div>
-        <div class="error-text" ng-show="countryLoadError">Failed to load countries. Please refresh.</div>
+        <label for="countryCode">
+          <span class="emoji">🌍</span>
+          <span>Country Code</span>
+        </label>
         
-        <div class="country-select-group" ng-show="!loadingCountries && !countryLoadError">
+        <div class="loading-spinner" ng-show="loadingCountries">
+          Loading countries... ⏳
+        </div>
+        
+        <div class="error-text" ng-show="countryLoadError">
+          ❌ Failed to load countries. Please refresh the page.
+        </div>
+        
+        <div class="country-select-wrapper" ng-show="!loadingCountries && !countryLoadError">
           <img 
+            class="flag-display"
             ng-src="{{selectedCountry.flag || 'https://flagsapi.com/US/flat/64.png'}}" 
             alt="Flag" />
           <select 
@@ -230,24 +378,29 @@
 
       <!-- Phone Number -->
       <div class="form-group">
-        <label for="phone">Phone Number *</label>
+        <label for="phone">
+          <span class="emoji">📱</span>
+          <span>Phone Number</span>
+        </label>
         <input 
           type="tel" 
           id="phone" 
           ng-model="user.phone" 
-          placeholder="Enter phone number"
+          placeholder="Enter your phone number"
           required />
       </div>
 
       <!-- Submit Button -->
       <button type="submit" ng-disabled="registerForm.$invalid || loadingCountries">
-        Create Account
+        <span ng-show="!registerForm.$invalid && !loadingCountries">Create My Account 🚀</span>
+        <span ng-show="registerForm.$invalid">Please Complete All Fields</span>
+        <span ng-show="loadingCountries">Loading...</span>
       </button>
     </form>
 
     <!-- Login Link -->
     <p class="login-link">
-      Already have an account? <a href="index.html">Log In</a>
+      Already have an account? <a href="index.html">Log In Here</a>
     </p>
   </div>
 
